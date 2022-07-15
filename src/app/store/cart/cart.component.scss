@@ -1,0 +1,81 @@
+:host{
+  display: block;
+  padding-top: 15px;
+  background-color: #fff;
+}
+.cart{
+  display: block;
+  height: calc(40vh - 73px);
+  padding: 20px 15px;
+  overflow-y: auto;
+
+  &__table{
+    width: 100%;
+    font-weight: bold;
+    border-spacing: 0px;
+
+    thead tr{
+      background-color: #f3fdff;
+    }
+
+    tbody tr:nth-child(2n){
+      background-color: #f3fdff;
+    }
+    th,td{
+      padding-top: 10px;
+      padding-bottom: 10px;
+      text-align: left;
+      font-size: 14px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    &-title{
+      max-width: 45%;
+      width: 100%;
+    }
+
+    &-quantity{
+      max-width: 25%;
+      width: 100%;
+
+      input{
+        padding: 2px 5px;
+        font-size: 14px;
+      }
+    }
+
+    &-price{
+      max-width: 12%;
+      width: 100%;
+    }
+
+    &-total{
+      max-width: 12%;
+      width: 100%;
+    }
+
+    &-action{
+      max-width: 6%;
+      width: 100%;
+
+      .remove{
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: lighter;
+        line-height: 25px;
+        border-radius: 50%;
+        border: none;
+        background-color: #ccc;
+        cursor: pointer;
+        opacity: .7;
+        transition: .2s;
+
+        &:hover{
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

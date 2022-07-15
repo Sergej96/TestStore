@@ -1,0 +1,58 @@
+<h2 class="title">Каталог</h2>
+<div class="main" *ngIf="products$ | async as products; else loader">
+  <div class="products">
+    <div class="products__wrapper">
+      <ng-container *ngIf="products.length !== 0; else empty">
+        <div class="product" *ngFor="let product of products">
+          <div class="product__img">{{product.PICTURE}}</div>
+          <h4 class="product__title">{{product.NAME}}</h4>
+          <div
+            *ngIf="product.PRICE; else sku"
+            class="product__price"
+            >{{product.PRICE|currency:"BYN":"руб.":"1.0"}}
+          </div>
+          <ng-template #sku>
+            <div
+              class="product__sku"
+              [class.active]="product.ID == activeProduct?.ID">
+              <ul>
+                <li class="product__sku--item" *ngFor="let sku of product.SKU">
+                  <span class="product__sku--title">
+                    {{sku.NAME}}
+                  </span>
+                  <span class="product__sku--price">
+                    {{sku.PRICE|currency:"BYN":"руб.":"1.0"}}
+                  </span>
+                  <app-button
+                    [class]="'btn--min btn--primary'"
+                    (onClicked)="addProductToCart(sku)">
+                    Купить
+                  </app-button>
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+          <app-button
+            *ngIf="product.PRICE; else sku_block"
+            [class]="'btn--primary'"
+            (onClicked)="addProductToCart(product)">
+            Купить
+          </app-button>
+          <ng-template #sku_block>
+          <app-button
+            [class]="'btn--primary'"
+            (onClicked)="onSelectItem(product)"
+            >{{(activeProduct?.ID == product.ID) ? 'Закрыть':'Предложение'}}</app-button>
+          </ng-template>
+        </div>
+      </ng-container>
+      <ng-template #empty>
+        empty
+      </ng-template>
+    </div>
+  </div>
+  <app-cart></app-cart>
+</div>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

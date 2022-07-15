@@ -1,0 +1,52 @@
+<h2 class="title">Корзина</h2>
+<div class="cart">
+  <table class="cart__table">
+    <thead>
+      <tr>
+        <th class="cart__table-title">Ноименование</th>
+        <th class="cart__table-quantity">Кол-во</th>
+        <th class="cart__table-price">Цена/шт</th>
+        <th class="cart__table-total">Сумма</th>
+        <th class="cart__table-action"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="cart.lines.length == 0">
+        <td colspan="5">
+          Корзина пустая
+        </td>
+      </tr>
+      <tr *ngFor="let line of cart.lines; trackBy:trackByLine">
+        <td class="cart__table-title">{{line.product.NAME}}</td>
+        <td class="cart__table-quantity">
+          <input
+            type="number"
+            min="1"
+            [value]="line.quantity"
+            (change)="cart.updateQuantity(line.product,
+            $any($event.target).value)"
+          />
+        </td>
+        <td class="cart__table-price">
+          {{line.product?.PRICE| currency:"BYN":"руб.":"1.0"}}
+        </td>
+        <td class="cart__table-total">
+          {{(line.lineTotal) | currency:"BYN":"руб.":"1.0"}}
+        </td>
+        <td class="cart__table-action">
+          <button
+            type="button"
+            class="remove"
+            (click)="cart.removeLine(line.product.ID)"
+          >x</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">Итого</td>
+        <td colspan="2">
+          {{cart.cartPrice | currency:"BYN":"руб.":"1.0"}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
